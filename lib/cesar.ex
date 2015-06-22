@@ -32,18 +32,22 @@ defmodule Cesar do
     char + start
   end
 
-  def encrypt([], amount), do: []
+  def encrypt([], key), do: []
 
-  def encrypt([ head | tail ], amount) when head in ?A..?Z do
-    [shift(head, amount, ?A, ?Z)] ++ encrypt(tail, amount)
+  def encrypt([ head | tail ], key) when head in ?A..?Z do
+    [shift(head, key, ?A, ?Z)] ++ encrypt(tail, key)
   end
 
-  def encrypt([ head | tail ], amount) do
-    [shift(head, amount)] ++ encrypt(tail, amount)
+  def encrypt([ head | tail ], key) do
+    [shift(head, key)] ++ encrypt(tail, key)
   end
 
-  def encrypt(string, amount) do
-    encrypt(String.to_char_list(string), amount) |> to_string
+  def encrypt(string, key) do
+    encrypt(String.to_char_list(string), key) |> to_string
+  end
+
+  def decrypt(string, key) do
+    encrypt(string, -key)
   end
   
   defp modulo(n, q) when is_integer(n) and n == abs(n) do
