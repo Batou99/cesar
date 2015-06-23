@@ -1,4 +1,8 @@
 defmodule Cesar do
+  #####################################################################
+  #  PUBLIC
+  #####################################################################
+  
   def encrypt([], key), do: []
 
   def encrypt([ head | tail ], key) when head in ?A..?Z do
@@ -18,6 +22,10 @@ defmodule Cesar do
   def decrypt(string, key) do
     encrypt(string, -key)
   end
+
+  #####################################################################
+  #  PRIVATE
+  #####################################################################
   
   defp shift(char, amount, start \\ ?a, finish \\ ?z)
 
