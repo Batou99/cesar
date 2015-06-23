@@ -2,11 +2,13 @@ defmodule Cesar do
   def encrypt([], key), do: []
 
   def encrypt([ head | tail ], key) when head in ?A..?Z do
-    [shift(head, key, ?A, ?Z)] ++ encrypt(tail, key)
+    normalized_key = modulo(key, ?Z-?A+1)
+    [shift(head, normalized_key, ?A, ?Z)] ++ encrypt(tail, key)
   end
 
   def encrypt([ head | tail ], key) do
-    [shift(head, key)] ++ encrypt(tail, key)
+    normalized_key = modulo(key, ?z-?a+1)
+    [shift(head, normalized_key)] ++ encrypt(tail, key)
   end
 
   def encrypt(string, key) do
