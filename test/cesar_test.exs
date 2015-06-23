@@ -2,56 +2,58 @@ defmodule CesarTest do
   use ExUnit.Case
   use ShouldI, async: true
 
-  with "#shift" do
+  with "#encrypt" do
     with "zero" do
 
-      should "not shift", context do
-        assert ?x == Cesar.shift(?x, 0)
+      should "not encrypt", context do
+        assert "x" == Cesar.encrypt("x", 0)
       end
     end
 
     with "positive" do
 
       should "a -> b", context do
-        assert ?b == Cesar.shift(?a, 1)
+        assert "b" == Cesar.encrypt("a", 1)
       end
 
       should "z -> a", context do
-        assert ?a == Cesar.shift(?z, 1)
+        assert "a" == Cesar.encrypt("z", 1)
       end
     end
 
     with "negative" do
 
       should "a -> z", context do
-        assert ?z == Cesar.shift(?a, -1)
+        assert "z" == Cesar.encrypt("a", -1)
       end
 
       should "z -> y", context do
-        assert ?y == Cesar.shift(?z, -1)
+        assert "y" == Cesar.encrypt("z", -1)
       end
     end
 
     with "numbers" do
-      should "not shift" do
-        assert ?1 == Cesar.shift(?1, -1)
-        assert ?0 == Cesar.shift(?0, 1)
+      should "not encrypt" do
+        assert "1" == Cesar.encrypt("1", -1)
+        assert "0" == Cesar.encrypt("0", 1)
       end
     end
 
     with "Uppercase" do
       should "keep case" do
-        assert ?B == Cesar.shift(?A, 1, ?A, ?Z)
-        assert ?Z == Cesar.shift(?A, -1, ?A, ?Z)
+        assert "C" == Cesar.encrypt("B", 1)
+        assert "Z" == Cesar.encrypt("A", -1)
       end
     end
+
+    with "Longer strings" do
+      should "preserve case" do
+        assert "Hola" == Cesar.encrypt("Hola", 0)
+        assert "Ipmb" == Cesar.encrypt("Hola", 1)
+      end
+    end
+
   end
 
-  with "#encrypt" do
-    should "preserve case" do
-      assert "Hola" == Cesar.encrypt("Hola", 0)
-      assert "Ipmb" == Cesar.encrypt("Hola", 1)
-    end
-  end
 
 end
