@@ -14,11 +14,11 @@ defmodule Client do
     end
   end
 
-  def process({ encrypt, file, key }) do
+  def process({ "encrypt", file, key }) do
     Reader.encrypt(file, key)
   end
 
-  def process({ decrypt, file, key }) do
+  def process({ "decrypt", file, key }) do
     Reader.decrypt(file, key)
   end
 end
