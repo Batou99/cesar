@@ -3,7 +3,7 @@ defmodule Cesar do
   #  PUBLIC
   #####################################################################
   
-  def encrypt([], key), do: []
+  def encrypt([], _), do: []
 
   def encrypt([ head | tail ], key) when head in ?A..?Z do
     normalized_key = modulo(key, ?Z-?A+1)
