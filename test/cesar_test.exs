@@ -19,6 +19,11 @@ defmodule CesarTest do
       should "z -> a", context do
         assert "a" == Cesar.encrypt("z", 1)
       end
+
+      should "a -> b" do
+        full_round = ?z - ?a + 1
+        assert "b" == Cesar.encrypt("a", full_round + 1)
+      end
     end
 
     with "negative" do
@@ -55,5 +60,17 @@ defmodule CesarTest do
 
   end
 
+  with "#decrypt" do
+
+    should "a -> b" do
+      full_round = ?z - ?a + 1
+      assert "a" == Cesar.decrypt("a", full_round)
+    end
+
+    should "be the opposite of encrypt" do
+      string = "Pleaz don't go there (key: 99)"
+      assert string == Cesar.encrypt(string, 99) |> Cesar.decrypt(99)
+    end
+  end
 
 end
