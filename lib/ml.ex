@@ -2,7 +2,8 @@ defmodule ML do
   def find_decrypt_key(text) do
     load_dict
     { key, cost } = 0..25 
-      |> Enum.map( fn(n) -> { n, find_cost(text,n) } end ) 
+      |> Stream.map( fn(n) -> Task.async(fn -> { n, find_cost(text,n) } end) end) 
+      |> Enum.map(&Task.await/1)
       |> Enum.min_by( fn({ key, cost }) -> cost end)
     key
   end
@@ -24,6 +25,5 @@ defmodule ML do
     Dictionary.start_link
     WordlistLoader.load_from_files
   end
-
 
 end
