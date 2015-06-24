@@ -1,7 +1,7 @@
 defmodule ML do
   def find_decrypt_key(text) do
     load_dict
-    { key, cost } = 0..25 
+    { key, _ } = 0..25 
       |> Stream.map( fn(n) -> Task.async(fn -> { n, find_cost(text,n) } end) end) 
       |> Enum.map(&Task.await/1)
       |> Enum.min_by( fn({ key, cost }) -> cost end)

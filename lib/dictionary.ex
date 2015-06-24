@@ -25,7 +25,6 @@ defmodule Dictionary do
   def count(word) do
     starting_with = to_char_list(word) |> hd
     found = Agent.get(@name, fn(dict) -> Dict.get(dict, starting_with, []) |> Enum.member?(word) end)
-    keys = Agent.get(@name, fn(dict) -> Dict.keys(dict) end)
     if found, do: 1, else: 0
   end
 
