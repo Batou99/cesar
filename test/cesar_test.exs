@@ -5,22 +5,22 @@ defmodule CesarTest do
   with "#encrypt" do
     with "zero" do
 
-      should "not encrypt", context do
+      should "not encrypt" do
         assert "x" == Cesar.encrypt("x", 0)
       end
     end
 
     with "positive" do
 
-      should "a -> b", context do
+      should "a -> b" do
         assert "b" == Cesar.encrypt("a", 1)
       end
 
-      should "z -> a", context do
+      should "z -> a" do
         assert "a" == Cesar.encrypt("z", 1)
       end
 
-      should "a -> b" do
+      should "a -> b on fullround" do
         full_round = ?z - ?a + 1
         assert "b" == Cesar.encrypt("a", full_round + 1)
       end
@@ -28,11 +28,11 @@ defmodule CesarTest do
 
     with "negative" do
 
-      should "a -> z", context do
+      should "a -> z" do
         assert "z" == Cesar.encrypt("a", -1)
       end
 
-      should "z -> y", context do
+      should "z -> y" do
         assert "y" == Cesar.encrypt("z", -1)
       end
     end
