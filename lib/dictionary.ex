@@ -20,6 +20,8 @@ defmodule Dictionary do
     count(head) + count(tail)
   end
 
+  def count(""), do: 0
+
   def count(word) do
     starting_with = to_char_list(word) |> hd
     found = Agent.get(@name, fn(dict) -> Dict.get(dict, starting_with, []) |> Enum.member?(word) end)
